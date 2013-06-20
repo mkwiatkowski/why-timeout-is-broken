@@ -40,6 +40,15 @@ Unfortunately, timeout implementation may cause a deadlock, if the timed out blo
 
 Maintaining a connections pool doesn't solve anything either.
 
+    $ ruby 5_connect_with_op_timeout_then_insert.rb
+    ................................................................................
+    ................................................................................
+    ........................T.......................................................
+    ................................................................................
+    .................................................T..........................^C
+
+Using [Mongo's op_timeout option](https://github.com/mongodb/mongo-ruby-driver#socket-timeouts) does the trick as it uses `IO.select` instead of `Timeout`.
+
 If you use `Timeout` in a web application, you may experience connections hang in `SYN_RECV` state. Stracing the Ruby process will reveal it is hanging on a call to [futex](http://man7.org/linux/man-pages/man2/futex.2.html).
 
 
