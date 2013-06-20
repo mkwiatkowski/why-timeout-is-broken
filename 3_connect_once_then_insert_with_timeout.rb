@@ -3,12 +3,12 @@ require 'timeout'
 
 STDOUT.sync = true
 
-conn = Mongo::MongoClient.new("localhost").db("test")
+db = Mongo::MongoClient.new("localhost").db("test")
 
 while true
   begin
     Timeout.timeout(0.005) do
-      conn["coll"].insert({'foo' => 'bar'})
+      db["coll"].insert({'foo' => 'bar'})
     end
     print "."
   rescue Timeout::Error

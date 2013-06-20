@@ -20,7 +20,7 @@ Mongo takes its time, no connection errors happen for the most part.
     ....T..................T....................................T...........TTTTT...
     ............................................................................^C
 
-Placing a time limit will cause timeouts for some requests, as expected.
+Placing a time limit will cause timeouts for some requests, as expected. This will leak connections over time though.
 
     $ ruby 3_connect_once_then_insert_with_timeout.rb
     ..........................................T.....................................
